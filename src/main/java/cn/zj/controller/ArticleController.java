@@ -103,17 +103,21 @@ public class ArticleController {
 		return new Result(400, ResultEnums.PARAM_ERROR);
 	}
 
-	@GetMapping("/article/findArchives")
-	public Result findArchives() {
-		return new Result(200, articleService.findArchives());
+	@GetMapping("/article/findArchivesByDate")
+	public PageInfo<Article> findArchives(String date, @RequestParam(defaultValue = "1") Integer pageNum,
+	                                                   @RequestParam(defaultValue = "5") Integer pageSize) {
+		if(date != null) {
+			return articleService.findArchivesByDate(date, pageNum, pageSize);
+		}
+		return null;
 	}
 
-	@GetMapping("/article/findArchivesDates")//shen
+	@GetMapping("/article/findArchivesDates")
 	public Result findArchivesTime(){
 		return new Result(200, articleService.findArchivesDates());
 	}
 
-  
+
 	@PutMapping("/article")
 	public Result update(Article article) {
 		if (article != null) {
