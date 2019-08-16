@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://{{IP}}/my_blog
+      username:
+      password:
+      max-active: 20
+      initial-size: 1
+      max-wait: 60000
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      async-init: true
+
+      #监控统计的stat,以及防sql注入的wall
+      filters: stat,wall
+
+      stat-view-servlet:
+        #是否启用StatViewServlet默认值true
+        enabled: true
+        # 需要账号密码才能访问控制台，默认为root
+        login-username: admin
+        login-password: admin
+        #访问路径为/druid时，跳转到StatViewServlet
+        url-pattern: /druid/*
+        #IP白名单
+        allow: 127.0.0.1
+        #&emsp;IP黑名单（共同存在时，deny优先于allow）
+        deny:
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+      aop-patterns: cn.zj.service.*
+
+      useGlobalDataSourceStat: true
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+---
+mybatis:
+#  configuration:
+#    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+  #pagehelper分页插件配置
+
+---

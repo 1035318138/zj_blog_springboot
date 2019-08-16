@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zj.mapper.CategoryMapper">
+    <select id="findAll" resultType="cn.zj.entity.Category">
+        SELECT * FROM tb_category
+    </select>
+
+    <select id="findByPage" resultType="cn.zj.entity.Category" parameterType="cn.zj.entity.Category">
+        SELECT * FROM tb_category
+        <!--<where>-->
+        <!--<if test="author!=null">author LIKE  CONCAT('%', #{author}, '%')</if>-->
+        <!--</where>-->
+    </select>
+
+    <select id="findById" resultType="cn.zj.entity.Category" parameterType="java.lang.Long">
+        SELECT * FROM tb_category WHERE id = #{id}
+    </select>
+
+    <insert id="add" parameterType="cn.zj.entity.Category">
+        INSERT INTO tb_category
+        (name) VALUES (#{name})
+    </insert>
+
+    <select id="findByName" resultType="cn.zj.entity.Category" parameterType="java.lang.String">
+        SELECT * FROM tb_category WHERE `name` = #{name}
+    </select>
+
+    <update id="update" parameterType="cn.zj.entity.Category">
+        UPDATE tb_category
+        <set>
+            <if test="name!=null">`name` = #{name}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM tb_category WHERE id = #{id}
+    </delete>
+
+    <select id="findCategoryByArticleId" parameterType="java.lang.Long" resultType="cn.zj.entity.Category">
+        SELECT * FROM tb_category c, tb_article a, tb_article_category ac
+        WHERE c.id = ac.category_id AND a.id = ac.article_id AND a.id = #{id}
+    </select>
+
+    <select id="exists" resultType="java.lang.Boolean" parameterType="java.lang.String">
+        SELECT count(1) FROM tb_category WHERE `name` = #{name}
+    </select>
+
+    <select id="findArticleByCategory" resultType="cn.zj.entity.Article" parameterType="java.lang.Long">
+        SELECT a.id, a.author, a.content, a.create_time, a.edit_time, a.eye_count, a.leave_message, a.origin, a.publish_time, a.state, a.title, a.title_pic
+        FROM tb_article a, tb_article_category ac, tb_category c
+        WHERE a.id = ac.article_id AND c.id = ac.category_id AND c.id = #{id}
+    </select>
+</mapper>

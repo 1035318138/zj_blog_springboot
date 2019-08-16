@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zj.mapper.TagsMapper">
+    <select id="findAllCount" resultType="java.lang.Long">
+        SELECT count(*) FROM tb_tags
+    </select>
+
+    <select id="findAll" resultType="cn.zj.entity.Tags">
+        SELECT * FROM tb_tags
+    </select>
+
+    <select id="findByPage" resultType="cn.zj.entity.Tags" parameterType="cn.zj.entity.Tags">
+        SELECT * FROM tb_tags
+        <!--WHERE 1=1-->
+        <!--<if test="author != null">-->
+        <!--AND author LIKE CONCAT('%', #{author}, '%')-->
+        <!--</if>-->
+    </select>
+
+    <select id="findById" resultType="cn.zj.entity.Tags">
+        SELECT * FROM tb_tags WHERE id = #{id}
+    </select>
+
+    <insert id="add" parameterType="cn.zj.entity.Tags">
+        INSERT INTO tb_tags (`name`) VALUES (#{name})
+    </insert>
+
+    <select id="exists" resultType="java.lang.Boolean" parameterType="java.lang.String">
+        SELECT count(1) FROM tb_tags WHERE `name` = #{name}
+    </select>
+
+    <update id="update" parameterType="cn.zj.entity.Tags">
+        UPDATE tb_tags SET `name` = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM tb_tags WHERE id = #{id}
+    </delete>
+
+    <select id="findByName" resultType="cn.zj.entity.Tags" parameterType="java.lang.String">
+        SELECT * FROM tb_tags WHERE `name` LIKE CONCAT('%', #{name}, '%')
+    </select>
+
+    <select id="findByArticleId" resultType="cn.zj.entity.Tags" parameterType="java.lang.Long">
+        SELECT * FROM tb_tags t, tb_article a, tb_article_tags `at`
+        WHERE t.id = `at`.tags_id AND a.id = `at`.article_id AND a.id = #{id}
+    </select>
+</mapper>

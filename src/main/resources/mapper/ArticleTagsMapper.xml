@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zj.mapper.ArticleTagsMapper">
+    <insert id="add" parameterType="cn.zj.entity.ArticleTags">
+        INSERT INTO tb_article_tags (article_id, tags_id) VALUES (#{article_id}, #{tags_id})
+    </insert>
+
+    <select id="exists" resultType="java.lang.Boolean" parameterType="java.lang.Long">
+        SELECT count(1) FROM tb_article_tags
+        <where>
+            <if test="article_id!=null">AND article_id = #{article_id}</if>
+            <if test="tags_id!=null">AND tags_id = #{tags_id}</if>
+        </where>
+    </select>
+
+    <select id="findByArticleId" resultType="cn.zj.entity.Tags" parameterType="java.lang.Long">
+        SELECT * FROM tb_tags t, tb_article a, tb_article_tags `at`
+        WHERE t.id = `at`.tags_id AND a.id = `at`.article_id AND a.id = #{id}
+    </select>
+
+    <delete id="deleteByArticleId" parameterType="java.lang.Long">
+        DELETE FROM tb_article_tags WHERE article_id = #{id}
+    </delete>
+
+    <delete id="deleteByTagsId" parameterType="java.lang.Long">
+        DELETE FROM tb_article_tags WHERE tags_id = #{id}
+    </delete>
+</mapper>
