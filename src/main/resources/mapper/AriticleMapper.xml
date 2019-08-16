@@ -83,7 +83,7 @@
     </select>
 
     <select id="findArchivesByDate" resultType="cn.zj.entity.Article">
-        SELECT id, title, publish_time FROM tb_article WHERE publish_time LIKE CONCAT('%', #{date}, '%')
+        SELECT * FROM tb_article WHERE publish_time LIKE CONCAT('%', #{date}, '%')
     </select>
 
     <select id="findFuzzyByTitle" resultType="cn.zj.entity.Article">

@@ -35,7 +35,7 @@ public interface ArticleService extends BaseService<Article> {
 	 *
 	 * @return
 	 */
-	List<ArticleArchives> findArchives();
+	PageInfo<Article> findArchivesByDate(String date, Integer pageNum, Integer pageSize);
 
 	List<String> findArchivesDates();
 

@@ -2,9 +2,9 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://{{IP}}/my_blog
-      username:
-      password:
+      url: jdbc:mysql://209.246.143.167:3306/my_blog
+      username: root
+      password: 123456
       max-active: 20
       initial-size: 1
       max-wait: 60000

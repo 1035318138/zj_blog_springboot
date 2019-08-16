@@ -103,15 +103,16 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<ArticleArchives> findArchives() {
-		List<ArticleArchives> articleArchives = new ArrayList<>();
-		List<String> dates = articleMapper.findArchivesDates();//时间划分
-		for (String date : dates) {
-			List<Article> articleList = articleMapper.findArchivesByDate(date);//查出对应时间段的文章
-			ArticleArchives articleArchive = new ArticleArchives(date, articleList);//存入封装好的时间归档类里
-			articleArchives.add(articleArchive);
-		}
-		return articleArchives;
+	public PageInfo<Article> findArchivesByDate(String date, Integer pageNum, Integer pageSize) {
+//		List<ArticleArchives> articleArchives = new ArrayList<>();
+//		List<String> dates = articleMapper.findArchivesDates();//时间划分
+//		for (String date : dates) {
+//			List<Article> articleList = articleMapper.findArchivesByDate(date);//查出对应时间段的文章
+//			ArticleArchives articleArchive = new ArticleArchives(date, articleList);//存入封装好的时间归档类里
+//			articleArchives.add(articleArchive);
+//		}
+		PageHelper.startPage(pageNum, pageSize);
+		return new PageInfo<>(articleMapper.findArchivesByDate(date));
 	}
 
 	public List<String> findArchivesDates(){
