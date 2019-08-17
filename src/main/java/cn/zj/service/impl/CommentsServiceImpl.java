@@ -3,7 +3,9 @@ package cn.zj.service.impl;
 import cn.zj.dto.CommentsDTO;
 import cn.zj.dto.PageBean;
 import cn.zj.entity.Comments;
+import cn.zj.entity.User;
 import cn.zj.mapper.CommentsMapper;
+import cn.zj.mapper.UserMapper;
 import cn.zj.service.CommentsService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -22,6 +24,8 @@ import java.util.List;
 public class CommentsServiceImpl implements CommentsService{
 	@Autowired
 	CommentsMapper commentsMapper;
+	@Autowired
+	UserMapper userMapper;
 
 	@Override
 	public Long findAllCount() {
@@ -47,7 +51,12 @@ public class CommentsServiceImpl implements CommentsService{
 
 	@Override
 	public void add(Comments comments) {
-		commentsMapper.add(comments);
+		User user = userMapper.findById(comments.getAuthor_id());
+//		comments.setAuthor_id(comments.getAuthor_id());
+		comments.setAuthor_avatar(user.getAvatar());
+		comments.setState("正常");
+		System.out.println(comments);
+//		commentsMapper.add(comments);
 	}
 
 	@Override
