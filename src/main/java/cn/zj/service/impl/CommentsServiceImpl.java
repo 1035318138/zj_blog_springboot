@@ -56,7 +56,7 @@ public class CommentsServiceImpl implements CommentsService{
 		comments.setAuthor_avatar(user.getAvatar());
 		comments.setState("正常");
 		System.out.println(comments);
-//		commentsMapper.add(comments);
+		commentsMapper.add(comments);
 	}
 
 	@Override
