@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,16 +34,18 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 //				.antMatchers("/**").permitAll()
 				.antMatchers("/resource/**", "/").permitAll()
-				.antMatchers(HttpMethod.POST, "/user").permitAll()
-				.antMatchers(HttpMethod.GET, "/user/**").permitAll()
-				.antMatchers("/user/**").hasRole("ADMIN")
-				.antMatchers(HttpMethod.POST, "/druid/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/user").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/user/findByName").permitAll()
+				.antMatchers("/api/user/**").hasRole("ADMIN")
+//				.antMatchers(HttpMethod.POST, "/druid/**").hasRole("ADMIN")
 				.antMatchers(HttpMethod.GET).permitAll()
-				.antMatchers(HttpMethod.POST).hasRole("USER")
-				.antMatchers(HttpMethod.PUT).hasRole("USER")
-				.antMatchers(HttpMethod.DELETE).hasRole("USER")
-				.antMatchers("/druid/**").permitAll().and()
+				.antMatchers(HttpMethod.POST).hasRole("ADMIN")
+				.antMatchers(HttpMethod.PUT).hasRole("ADMIN")
+				.antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+//				.antMatchers("/druid/**").permitAll()
+				.and()
 				.cors().and()
+//				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 
 				.formLogin()
 				.usernameParameter("user")
