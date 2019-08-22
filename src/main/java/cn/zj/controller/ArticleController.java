@@ -135,4 +135,29 @@ public class ArticleController {
 		}
 		return new Result(400, ResultEnums.ERROR);
 	}
+
+	@GetMapping("/article/findArticleCount")
+	public Result findArticleCount(){
+		return new Result(200, articleService.findArticleCount());
+	}
+
+	@GetMapping("/article/findEyeCount")
+	public Result findEyeCount(){
+		return new Result(200, articleService.findEyeCount());
+	}
+
+	@GetMapping("/article/findWeek")
+	public Result findWeek(){
+		return new Result(200, articleService.findWeek());
+	}
+
+	@GetMapping("/article/findCommentCount")
+	public Result findCommentCount(){
+		return new Result(200, articleService.findCommentCount());
+	}
+
+	@GetMapping("/article/findUserCount")
+	public Result findUserCount(){
+		return new Result(200, articleService.findUserCount());
+	}
 }
