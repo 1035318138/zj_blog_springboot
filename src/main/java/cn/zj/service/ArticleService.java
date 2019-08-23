@@ -51,4 +51,39 @@ public interface ArticleService extends BaseService<Article> {
 	 * 增加浏览量
 	 */
 	void addEyeCount(Long id);
+
+	/**
+	 * 查询最近一周文章数量
+	 *
+	 * @return
+	 */
+	List<Long> findArticleCount();
+
+	/**
+	 * 查询最近一周浏览量
+	 *
+	 * @return
+	 */
+	List<Long> findEyeCount();
+
+	/**
+	 * 以现在开始查询一星期之前
+	 *
+	 * @return 一个星期 如星期一 星期二...星期日
+	 */
+	List<String> findWeek();
+
+	/**
+	 * 一个星期的评论总数
+	 *
+	 * @return
+	 */
+	List<Long> findCommentCount();
+
+	/**
+	 * 一个星期内的用户数
+	 *
+	 * @return
+	 */
+	List<Long> findUserCount();
 }

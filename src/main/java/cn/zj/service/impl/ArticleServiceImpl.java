@@ -1,10 +1,7 @@
 package cn.zj.service.impl;
 
-import cn.zj.dto.ArticleArchives;
 import cn.zj.entity.*;
-import cn.zj.mapper.ArticleCategoryMapper;
-import cn.zj.mapper.ArticleMapper;
-import cn.zj.mapper.ArticleTagsMapper;
+import cn.zj.mapper.*;
 import cn.zj.service.ArticleService;
 import cn.zj.service.CategoryService;
 import cn.zj.service.TagsService;
@@ -13,6 +10,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +30,12 @@ public class ArticleServiceImpl implements ArticleService {
 	ArticleCategoryMapper articleCategoryMapper;
 	@Autowired
 	ArticleTagsMapper articleTagsMapper;
+	@Autowired
+	DateCountMapper dateCountMapper;
+	@Autowired
+	CommentsMapper commentsMapper;
+	@Autowired
+	UserMapper userMapper;
 	@Autowired
 	CategoryService categoryService;
 	@Autowired
@@ -87,6 +91,38 @@ public class ArticleServiceImpl implements ArticleService {
 			articleTagsMapper.deleteByArticleId(id);
 			articleCategoryMapper.deleteByArticleId(id);
 		}
+	}
+
+	/**
+	 * 每天保存文章数量的数据
+	 */
+	@Scheduled(cron = "0 0 0 * * MON-FRI")//定时每一天凌晨统计   秒分时天月 星期
+	public void saveCountByDay() {
+		Long articleCount = articleMapper.findAllCount();
+		Long eyeCount = articleMapper.findAllEyeCount();
+		Long comments = commentsMapper.findAllCount();
+		Long user_count = userMapper.findUserCount();
+		dateCountMapper.add(new DateCount(null, new Date(), articleCount, eyeCount, comments, user_count));
+	}
+
+	public List<Long> findArticleCount(){
+		return dateCountMapper.findArticleCount();
+	}
+
+	public List<Long> findEyeCount(){
+		return dateCountMapper.findEyeCount();
+	}
+
+	public List<String> findWeek(){
+		return dateCountMapper.findWeek();
+	}
+
+	public List<Long> findCommentCount(){
+		return dateCountMapper.findCommentCount();
+	}
+
+	public List<Long> findUserCount(){
+		return dateCountMapper.findUserCount();
 	}
 
 //	public PageBean findByPageForSite(Integer pageCode, Integer pageSize) {

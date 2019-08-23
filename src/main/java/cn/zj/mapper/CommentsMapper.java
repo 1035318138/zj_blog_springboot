@@ -33,6 +33,9 @@ public interface CommentsMapper {
 	//查询文章评论量
 	Long findCountByArticleId(Long id);
 
+	//根据文章id查询评论列表
+	List<Comments> findByArticleId(Long id);
+
 	//新增评论
 	void add(Comments comments);
 
@@ -41,4 +44,7 @@ public interface CommentsMapper {
 
 	//删除
 	void delete(Long id);
+
+	//按照日期查看最近留言(5条)
+	List<Comments> findByRecent();
 }

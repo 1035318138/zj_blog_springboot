@@ -8,7 +8,7 @@
     </select>
 
     <select id="findAllCount" resultType="java.lang.Long">
-        SELECT COUNT(*) FROM tb_article
+        SELECT COUNT(tb_article.id) article_count FROM tb_article
     </select>
 
     <select id="findByPage" resultType="cn.zj.entity.Article" parameterType="cn.zj.entity.Article">
@@ -101,4 +101,7 @@
         WHERE a.id = ac.article_id AND c.id = ac.category_id AND c.`name` LIKE CONCAT('%',#{category},'%')
     </select>
 
+    <select id="findAllEyeCount" resultType="java.lang.Long">
+        SELECT SUM(eye_count) eye_count_sum FROM tb_article
+    </select>
 </mapper>

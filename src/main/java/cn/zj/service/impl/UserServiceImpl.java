@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 		if (user.getNickname() == null)
 			user.setNickname(UUID.randomUUID().toString());
 		if (user.getAvatar() == null)
-			user.setAvatar("../../../../static/img/default_avatar/user_avatar0" +
+			user.setAvatar("http://localhost:8080/default_avatar/user_avatar0" +
 							new Random().nextInt(12) + 1 + ".png");
 		userMapper.add(user);
 	}

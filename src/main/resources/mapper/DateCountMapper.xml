@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zj.mapper.DateCountMapper">
+    <insert id="add" parameterType="cn.zj.entity.DateCount">
+        INSERT INTO tb_article_count (today, article_count, eye_count) VALUES (#{today}, #{article_count}, #{eye_count})
+    </insert>
+
+    <select id="findArticleCount" resultType="java.lang.Long">
+        SELECT article_count FROM tb_article_count ORDER BY today DESC LIMIT 0, 7
+    </select>
+
+    <select id="findEyeCount" resultType="java.lang.Long">
+        SELECT eye_count FROM tb_article_count ORDER BY today DESC LIMIT 0, 7
+    </select>
+
+    <select id="findCommentCount" resultType="java.lang.Long">
+        SELECT comment_count FROM tb_article_count ORDER BY today DESC LIMIT 0, 7
+    </select>
+
+    <select id="findWeek" resultType="java.lang.String">
+        SELECT DATE_FORMAT(today,'%W') FROM tb_article_count ORDER BY today DESC LIMIT 0, 7
+    </select>
+
+    <select id="findUserCount" resultType="java.lang.Long">
+        SELECT user_count FROM tb_article_count ORDER BY today DESC LIMIT 0, 7
+    </select>
+</mapper>

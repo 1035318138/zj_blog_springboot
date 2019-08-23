@@ -51,4 +51,11 @@ public interface ArticleMapper {
 
 	//根据分类名称 查询文章列表
 	List<Article> findByCategory(String category);
+
+	/**
+	 * 查询所有文章的浏览量
+	 *
+	 * @return
+	 */
+	Long findAllEyeCount();
 }

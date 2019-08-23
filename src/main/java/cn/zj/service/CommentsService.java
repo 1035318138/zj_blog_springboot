@@ -3,6 +3,8 @@ package cn.zj.service;
 import cn.zj.dto.PageBean;
 import cn.zj.entity.Comments;
 
+import java.util.List;
+
 /**
  * Created by Sept.05 on 2019/8/6.
  */
@@ -25,4 +27,19 @@ public interface CommentsService extends BaseService<Comments> {
 	 * @return
 	 */
 	Long findCountByArticle(Long articleId);
+
+	/**
+	 * 根据文章id查询评论列表
+	 *
+	 * @param id
+	 * @return
+	 */
+	List<Comments> findByArticleId(Long id);
+
+	/**
+	 * 最近5条留言记录
+	 *
+	 * @return
+	 */
+	List<Comments> findByRecent();
 }

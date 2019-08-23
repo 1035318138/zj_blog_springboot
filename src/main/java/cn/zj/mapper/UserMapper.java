@@ -31,4 +31,11 @@ public interface UserMapper {
 
 	//根据用户名查密码
 	String getPassWordByName(String username);
+
+	/**
+	 * 查询总用户数
+	 *
+	 * @return
+	 */
+	Long findUserCount();
 }

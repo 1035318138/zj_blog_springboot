@@ -1,6 +1,10 @@
 package cn.zj.controller;
 
 import cn.zj.dto.Result;
+import cn.zj.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class LoginController {
+	@Autowired
+	UserService userService;
+
 	@GetMapping("/userLogin")
 	public String loginPage(){
 		return "login";
@@ -23,7 +30,8 @@ public class LoginController {
 
 	@RequestMapping("/success")
 	public Result success(){
-		return new Result(200, "请求成功");
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return new Result(200, userService.findByName(user.getUsername()));
 	}
 
 	@RequestMapping("/fail")

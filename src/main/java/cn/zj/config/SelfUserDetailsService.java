@@ -30,7 +30,7 @@ public class SelfUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 		User user = userService.findByName(s);
-		System.out.println(s);
+//		System.out.println(s);
 //		System.out.println(userService == null);
 		if (user != null) {
 			user.setPassword(userService.getPassWordByName(s));

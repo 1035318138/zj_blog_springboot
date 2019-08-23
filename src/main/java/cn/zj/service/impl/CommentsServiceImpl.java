@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,6 +56,7 @@ public class CommentsServiceImpl implements CommentsService{
 //		comments.setAuthor_id(comments.getAuthor_id());
 		comments.setAuthor_avatar(user.getAvatar());
 		comments.setState("正常");
+		comments.setTime(new Date());
 		System.out.println(comments);
 		commentsMapper.add(comments);
 	}
@@ -108,4 +110,16 @@ public class CommentsServiceImpl implements CommentsService{
 	public Long findCountByArticle(Long articleId) {
 		return commentsMapper.findCountByArticleId(articleId);
 	}
+
+	@Override
+	public List<Comments> findByArticleId(Long id) {
+		return commentsMapper.findByArticleId(id);
+	}
+
+	@Override
+	public List<Comments> findByRecent() {
+		return commentsMapper.findByRecent();
+	}
+
+
 }

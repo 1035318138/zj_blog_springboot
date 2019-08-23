@@ -12,10 +12,10 @@ public class Comments {
 	private Long id;
 	private Long p_id;
 	private Long c_id;
-	private String article_title;
+	private String author_avatar;
 	private Long article_id;
 	private String author;
-	private String author_id;
+	private Long author_id;
 	private String email;
 	private String content;
 	private Date time;

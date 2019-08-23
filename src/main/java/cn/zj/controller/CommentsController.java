@@ -93,4 +93,17 @@ public class CommentsController {
 		}
 		return new Result(400, ResultEnums.PARAM_ERROR);
 	}
+
+	@GetMapping("/comments/findByArticleId")
+	public Result findByArticleId(Long id){
+		if(id != null){
+			return new Result(200, commentsService.findByArticleId(id));
+		}
+		return new Result(400, ResultEnums.PARAM_ERROR);
+	}
+
+	@GetMapping("/comments/findByRecent")
+	public Result findByRecent(){
+		return new Result(200, commentsService.findByRecent());
+	}
 }

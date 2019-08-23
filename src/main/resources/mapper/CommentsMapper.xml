@@ -38,10 +38,10 @@
 
     <insert id="add" parameterType="cn.zj.entity.Comments">
         INSERT INTO tb_comments (
-          p_id, c_id, article_title, article_id, author, author_id, email, content,
+          p_id, c_id, author_avatar, article_id, author, author_id, email, content,
           `time`, url, state, sort
         )VALUES (
-          #{p_id}, #{c_id}, #{article_title}, #{article_id}, #{author}, #{author_id}, #{email}, #{content},
+          #{p_id}, #{c_id}, #{author_avatar}, #{article_id}, #{author}, #{author_id}, #{email}, #{content},
           #{time}, #{url}, #{state}, #{sort}
         )
     </insert>
@@ -51,7 +51,7 @@
         <set>
             <if test="p_id!=null">p_id=#{p_id},</if>
             <if test="c_id!=null">c_id=#{c_id},</if>
-            <if test="article_title!=null">article_title=#{article_title},</if>
+            <if test="author_avatar!=null">author_avatar=#{author_avatar},</if>
             <if test="article_id!=null">article_id=#{article_id},</if>
             <if test="author!=null">author=#{author},</if>
             <if test="author_id!=null">author_id=#{author_id},</if>
@@ -68,4 +68,15 @@
     <delete id="delete" parameterType="java.lang.Long">
         DELETE FROM tb_comments WHERE id = #{id}
     </delete>
+
+    <select id="findByArticleId" resultType="cn.zj.entity.Comments" parameterType="java.lang.Long">
+        SELECT tb_comments.id, tb_comments.author, tb_comments.content, tb_comments.time, tb_comments.author_avatar
+        FROM tb_comments WHERE tb_comments.article_id = #{id}
+        ORDER BY tb_comments.time DESC
+    </select>
+
+    <select id="findByRecent" resultType="cn.zj.entity.Comments">
+        SELECT tb_comments.content, tb_comments.author, tb_comments.time
+        FROM `tb_comments` ORDER BY tb_comments.time DESC LIMIT 0, 8
+    </select>
 </mapper>

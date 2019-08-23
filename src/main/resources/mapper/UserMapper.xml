@@ -12,7 +12,7 @@
     </select>
 
     <select id="findByName" resultType="cn.zj.entity.User">
-        SELECT id, username, nickname, experience, email, avatar FROM tb_user WHERE tb_user.username = #{username}
+        SELECT id, username, nickname, experience, email, avatar, role FROM tb_user WHERE tb_user.username = #{username}
     </select>
 
     <insert id="add" parameterType="cn.zj.entity.User">
@@ -49,5 +49,9 @@
 
     <select id="getPassWordByName" resultType="java.lang.String" parameterType="java.lang.String">
         SELECT password FROM tb_user WHERE  username = #{username}
+    </select>
+
+    <select id="findUserCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM tb_user
     </select>
 </mapper>
