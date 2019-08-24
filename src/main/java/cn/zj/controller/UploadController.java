@@ -16,7 +16,7 @@ import java.util.UUID;
 
 /**
  * Created by Sept.05 on 2019/8/6.
- *
+ * <p>
  * 文件上传
  */
 @RestController
@@ -26,11 +26,11 @@ public class UploadController {
 	UserService userService;
 
 	@RequestMapping("/upload")
-	public Result upload(Long id, MultipartFile uploadfile, HttpServletRequest request){
+	public Result upload(MultipartFile uploadfile, HttpServletRequest request) {
 //		String path = request.getSession().getServletContext().getRealPath("/upload/");
 		String classpath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
 		File file = new File(classpath, "/static/upload");
-		if(!file.exists()){
+		if (!file.exists()) {
 			file.mkdirs();
 		}
 //		System.out.println(uploadfile);
@@ -46,10 +46,25 @@ public class UploadController {
 //			User user = new User();
 //			user.setId(id);
 //			user.setAvatar(file1.getName());
-			return new Result(200, "上传成功");
+			return new Result(200, "http://localhost:8080/upload/" + file1.getName());
 		} catch (IOException e) {
 			e.printStackTrace();
 			return new Result(500, "上传失败");
 		}
+	}
+
+	@RequestMapping("/upload/article_picture")
+	public Result uploadArticlePicture(Long id, MultipartFile uploadfile, HttpServletRequest req) throws IOException {
+		//获得静态资源路径
+		String classpath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+		//以用户id为名创建文件夹
+		File articleDir = new File(classpath, "/static/upload/article/" + id);
+		if (!articleDir.exists()) {
+			articleDir.mkdirs();
+		}
+		String fileName = UUID.randomUUID().toString().replace("-", "") + "_" + uploadfile.getOriginalFilename();
+		File file = new File(articleDir.getAbsolutePath(), fileName);
+		uploadfile.transferTo(file);
+		return new Result(200, "http://localhost:8080/upload/article/" + id + "/" + file.getName());
 	}
 }

@@ -90,6 +90,15 @@ public class ArticleController {
 		return new Result(400, ResultEnums.ERROR);
 	}
 
+	@PostMapping("/article")
+	public Result add(Article article){
+		if(article != null){
+			articleService.add(article);
+			return new Result(200, "success");
+		}
+		return new Result(400, ResultEnums.PARAM_ERROR);
+	}
+
 	@GetMapping("/article/findTags/{id}")
 	public Result findTags(@PathVariable("id") Long id) {
 		if (id != null) {
@@ -119,8 +128,9 @@ public class ArticleController {
 
 
 	@PutMapping("/article")
-	public Result update(Article article) {
+	public Result update(@RequestBody Article article) {
 		if (article != null) {
+			System.out.println(article);
 			articleService.update(article);
 			return new Result(200, ResultEnums.SUCCESS);
 		}

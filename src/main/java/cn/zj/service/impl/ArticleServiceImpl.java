@@ -68,17 +68,20 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public void add(Article article) {
-		if (article.getState() == "1") {//发布
-			article.setPublish_time(new Date());
+		if (article.getState() == "published") {//发布
+//			article.setPublish_time(new Date());
 			article.setCreate_time(new Date());
 		}
 		article.setEdit_time(new Date());
-		articleMapper.add(article);
+		article.setEye_count(0);
+//		articleMapper.add(article);
+		System.out.println(article);
 		updateCategoryAndTags(article);//更新关联表信息
 	}
 
 	@Override
 	public void update(Article article) {
+//		System.out.println(article);
 		articleMapper.update(article);
 		updateCategoryAndTags(article);
 	}
