@@ -9,6 +9,7 @@ import cn.zj.mapper.UserMapper;
 import cn.zj.service.CommentsService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,11 +39,17 @@ public class CommentsServiceImpl implements CommentsService{
 		return commentsMapper.findAll();
 	}
 
-	public PageBean findByPage(Integer pageCode, Integer pageSize) {
-//		PageHelper.startPage(pageCode, pageSize);
-//		Page page = commentsMapper.findByPage(comments);
-//		return new PageBean(page.getTotal(), page.getResult());
+	public PageInfo<Comments> findByPage(Integer pageNum, Integer pageSize) {
+		if(pageNum != null && pageSize != null){
+			PageHelper.startPage(pageNum, pageSize);
+			return new PageInfo<>(commentsMapper.findAll());
+		}
 		return null;
+	}
+
+	@Override
+	public void updateStatus(Comments comments) {
+		commentsMapper.updateStatus(comments);
 	}
 
 	@Override

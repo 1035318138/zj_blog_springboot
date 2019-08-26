@@ -1,6 +1,7 @@
 package cn.zj.entity;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -18,6 +19,7 @@ public class Comments {
 	private Long author_id;
 	private String email;
 	private String content;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date time;
 	private String url;
 	private String state;

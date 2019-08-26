@@ -34,7 +34,7 @@ public interface CategoryMapper {
 	void delete(Long id);
 
 	//根据文章id查询分类
-	List<Category> findCategoryByArticleId(Long id);
+	Category findCategoryByArticleId(Long id);
 
 	//是否存在
 	Boolean exists(String name);

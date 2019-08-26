@@ -2,6 +2,7 @@ package cn.zj.service;
 
 import cn.zj.dto.PageBean;
 import cn.zj.entity.Comments;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -42,4 +43,8 @@ public interface CommentsService extends BaseService<Comments> {
 	 * @return
 	 */
 	List<Comments> findByRecent();
+
+	PageInfo<Comments> findByPage(Integer pageNum, Integer pageSize);
+
+	void updateStatus(Comments comments);
 }

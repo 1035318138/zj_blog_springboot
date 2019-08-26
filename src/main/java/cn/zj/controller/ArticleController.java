@@ -91,8 +91,9 @@ public class ArticleController {
 	}
 
 	@PostMapping("/article")
-	public Result add(Article article){
+	public Result add( Article article){
 		if(article != null){
+//			System.out.println(article);
 			articleService.add(article);
 			return new Result(200, "success");
 		}
@@ -128,9 +129,9 @@ public class ArticleController {
 
 
 	@PutMapping("/article")
-	public Result update(@RequestBody Article article) {
+	public Result update(Article article) {
 		if (article != null) {
-			System.out.println(article);
+//			System.out.println(article);
 			articleService.update(article);
 			return new Result(200, ResultEnums.SUCCESS);
 		}
@@ -169,5 +170,15 @@ public class ArticleController {
 	@GetMapping("/article/findUserCount")
 	public Result findUserCount(){
 		return new Result(200, articleService.findUserCount());
+	}
+
+	@PutMapping("/article/updateEyeCount")
+	public Result updateEyeCount(Long id){
+//		System.out.println(id);
+		if(id != null){
+			articleService.addEyeCount(id);
+			return new Result(200, ResultEnums.SUCCESS);
+		}
+		return new Result(400, ResultEnums.PARAM_ERROR);
 	}
 }

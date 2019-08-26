@@ -36,10 +36,10 @@ public class ArticleServiceImpl implements ArticleService {
 	CommentsMapper commentsMapper;
 	@Autowired
 	UserMapper userMapper;
+//	@Autowired
+//	CategoryService categoryService;
 	@Autowired
-	CategoryService categoryService;
-	@Autowired
-	TagsService tagsService;
+	CategoryMapper categoryMapper;
 
 	@Override
 	public Long findAllCount() {
@@ -53,7 +53,9 @@ public class ArticleServiceImpl implements ArticleService {
 	public PageInfo<Article> findByPage(Integer pageNum, Integer pageSize) {
 		if (pageNum != null && pageSize != null) {
 			PageHelper.startPage(pageNum, pageSize);
-			PageInfo<Article> pageInfo = new PageInfo<>(articleMapper.findAll());
+			List<Article> articles = articleMapper.findAll();
+			PageInfo<Article> pageInfo = new PageInfo<>(articles);
+			pageInfo.getList().forEach(article -> article.setCategory(categoryMapper.findCategoryByArticleId(article.getId()).getName()));
 			return pageInfo;
 		}
 		return null;
@@ -68,15 +70,12 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public void add(Article article) {
-		if (article.getState() == "published") {//发布
-//			article.setPublish_time(new Date());
-			article.setCreate_time(new Date());
-		}
+		article.setPublish_time(new Date());
 		article.setEdit_time(new Date());
 		article.setEye_count(0);
-//		articleMapper.add(article);
-		System.out.println(article);
-		updateCategoryAndTags(article);//更新关联表信息
+		articleMapper.add(article);
+//		System.out.println(article);
+		addCategoryAndTags(article);//更新关联表信息
 	}
 
 	@Override
@@ -89,6 +88,7 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public void delete(Long... ids) {
 		for (Long id : ids) {
+//			System.out.println("delete..." + id);
 			articleMapper.deleteById(id);
 			//更新关联表
 			articleTagsMapper.deleteByArticleId(id);
@@ -128,14 +128,6 @@ public class ArticleServiceImpl implements ArticleService {
 		return dateCountMapper.findUserCount();
 	}
 
-//	public PageBean findByPageForSite(Integer pageCode, Integer pageSize) {
-//		PageHelper.startPage(pageCode, pageSize);
-//		Page<Article> page = articleMapper.findByPageForSite();
-//		List<Article> articleList = page.getResult();
-//		initArticle(articleList);
-//		return new PageBean(page.getTotal(), articleList);
-//	}
-
 	@Override
 	public List<Article> findByCategory(String category) {
 		return articleMapper.findByCategory(category);
@@ -143,13 +135,6 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public PageInfo<Article> findArchivesByDate(String date, Integer pageNum, Integer pageSize) {
-//		List<ArticleArchives> articleArchives = new ArrayList<>();
-//		List<String> dates = articleMapper.findArchivesDates();//时间划分
-//		for (String date : dates) {
-//			List<Article> articleList = articleMapper.findArchivesByDate(date);//查出对应时间段的文章
-//			ArticleArchives articleArchive = new ArticleArchives(date, articleList);//存入封装好的时间归档类里
-//			articleArchives.add(articleArchive);
-//		}
 		PageHelper.startPage(pageNum, pageSize);
 		return new PageInfo<>(articleMapper.findArchivesByDate(date));
 	}
@@ -174,36 +159,42 @@ public class ArticleServiceImpl implements ArticleService {
 	 * @param articles
 	 */
 	private void initArticle(List<Article> articles) {
-		for (Article article : articles) {
-			List<Category> categories = categoryService.findCategoryByArticleId(article.getId());
-			if (!categories.isEmpty()) {
-				article.setCategory(categories.get(0).getName());
-			}
-			List<Tags> tags = tagsService.findByArticleId(article.getId());
-			List<String> singleTagName = new ArrayList<>();
-
-			if (!tags.isEmpty()) {
-				for (Tags tag : tags) {
-					singleTagName.add(tag.getName());
-				}
-				article.setTags(JSON.toJSONString(singleTagName));
-			}
+		for(Article article : articles){
+			article.setCategory(categoryMapper.findCategoryByArticleId(article.getId()).getName());
 		}
+		articles.forEach(System.out::println);
+//		for (Article article : articles) {
+//			List<Category> categories = categoryService.findCategoryByArticleId(article.getId());
+//			if (!categories.isEmpty()) {
+//				article.setCategory(categories.get(0).getName());
+//			}
+//			List<Tags> tags = tagsService.findByArticleId(article.getId());
+//			List<String> singleTagName = new ArrayList<>();
+
+//			if (!tags.isEmpty()) {
+//				for (Tags tag : tags) {
+//					singleTagName.add(tag.getName());
+//				}
+//				article.setTags(JSON.toJSONString(singleTagName));
+//			}
+//		}
 	}
 
 	private void initArticle(Article article) {
-		List<Category> categorys = categoryService.findCategoryByArticleId(article.getId());
-		if (!categorys.isEmpty()) {
-			article.setCategory(categorys.get(0).getName());
-		}
-		List<Tags> tags = tagsService.findByArticleId(article.getId());
-		List<String> singleTagName = new ArrayList<>();
-		if (!tags.isEmpty()) {
-			for (Tags tag : tags) {
-				singleTagName.add(tag.getName());
-			}
-		}
-		article.setTags(JSON.toJSONString(singleTagName));
+		Category category = categoryMapper.findCategoryByArticleId(article.getId());
+		article.setCategory(category.getName());
+//		List<Category> categorys = categoryService.findCategoryByArticleId(article.getId());
+//		if (!categorys.isEmpty()) {
+//			article.setCategory(categorys.get(0).getName());
+//		}
+//		List<Tags> tags = tagsService.findByArticleId(article.getId());
+//		List<String> singleTagName = new ArrayList<>();
+//		if (!tags.isEmpty()) {
+//			for (Tags tag : tags) {
+//				singleTagName.add(tag.getName());
+//			}
+//		}
+//		article.setTags(JSON.toJSONString(singleTagName));
 //		article.setTags(singleTagName.toString());
 	}
 
@@ -214,23 +205,13 @@ public class ArticleServiceImpl implements ArticleService {
 	 */
 	private void updateCategoryAndTags(Article article) {
 		if (article.getCategory() != null) {//新增文章的分类不为空
-			if (!categoryService.exists(article.getCategory())) {
-				categoryService.add(new Category(article.getCategory()));//分类表中添加新的分类
-			}
-			Category category = categoryService.findByName(article.getCategory());//根据分类名查 分类 信息
-			articleCategoryMapper.add(new ArticleCategory(article.getId(), category.getId()));//更新文章分类关联表信息
+			articleCategoryMapper.updateByAritlceId(categoryMapper.findByName(article.getCategory()).getId(), article.getId());//更新文章分类关联表信息
 		}
-		if (article.getTags() != null) {
-			List<String> list = (List<String>) JSONArray.parse(article.getTags());
-			for (String name : list) {//更新标签表
-				if (!tagsService.exists(name))
-					tagsService.add(new Tags(name));
+	}
 
-				Tags tags = tagsService.findByName(name);
-				if (tags != null) {//标签存在 更新关联表信息
-					articleTagsMapper.add(new ArticleTags(article.getId(), tags.getId()));
-				}
-			}
+	private void addCategoryAndTags(Article article){
+		if(article.getCategory() != null){
+			articleCategoryMapper.add(new ArticleCategory(article.getId(), categoryMapper.findByName(article.getCategory()).getId()));
 		}
 	}
 }

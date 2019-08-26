@@ -5,6 +5,7 @@ import cn.zj.dto.Result;
 import cn.zj.entity.Comments;
 import cn.zj.enums.ResultEnums;
 import cn.zj.service.CommentsService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,12 @@ public class CommentsController {
 //		}
 //		return new Result(400, ResultEnums.PARAM_ERROR);
 //	}
+
+	@GetMapping("/comments/findByPage")
+	public PageInfo<Comments> findByPage(@RequestParam(defaultValue = "1") Integer pageNum,
+	                           @RequestParam(defaultValue = "5") Integer pageSize){
+		return commentsService.findByPage(pageNum, pageSize);
+	}
 
 	@GetMapping("/comments/findCountByArticle/{id}")
 	public Result findCountByArticle(@PathVariable("id") Long id) {
@@ -105,5 +112,11 @@ public class CommentsController {
 	@GetMapping("/comments/findByRecent")
 	public Result findByRecent(){
 		return new Result(200, commentsService.findByRecent());
+	}
+
+	@PutMapping("/comments/updateStatus")
+	public Result updateStatus(Comments comments){
+		commentsService.updateStatus(comments);
+		return new Result(200, ResultEnums.SUCCESS);
 	}
 }

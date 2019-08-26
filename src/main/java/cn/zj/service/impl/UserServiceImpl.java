@@ -45,13 +45,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<User> findByBlurryName(String name) {
+		return userMapper.findByBlurryName(name);
+	}
+
+	@Override
+	public Boolean check(Long id, String password) {
+		return userMapper.findPasswordById(id).equals(password);
+	}
+
+	@Override
 	public Long findAllCount() {
 		return null;
 	}
 
 	@Override
 	public List<User> findAll() {
-		return null;
+		return userMapper.findAll();
 	}
 
 	public PageBean findByPage(Integer pageCode, Integer pageSize) {

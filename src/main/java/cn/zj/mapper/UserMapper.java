@@ -38,4 +38,10 @@ public interface UserMapper {
 	 * @return
 	 */
 	Long findUserCount();
+
+	List<User> findByBlurryName(String name);
+
+	List<User> findAll();
+
+	String findPasswordById(Long id);
 }

@@ -14,6 +14,7 @@ public class Article {
 	private String title;
 	private String title_pic;
 	private String author;
+	private String content_short;
 	private String content;
 	private String leave_message;
 	private String origin;
@@ -21,9 +22,9 @@ public class Article {
 	private Integer eye_count;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date publish_time;
-//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date edit_time;
-//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date create_time;
 
 	//非数据库字段属性

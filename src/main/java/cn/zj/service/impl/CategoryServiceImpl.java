@@ -72,7 +72,7 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public List<Category> findCategoryByArticleId(Long id) {
+	public Category findCategoryByArticleId(Long id) {
 		return categoryMapper.findCategoryByArticleId(id);
 	}
 

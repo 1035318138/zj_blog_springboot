@@ -12,7 +12,7 @@ import java.util.List;
 public interface CategoryService extends BaseService<Category>{
 	Category findByName(String name);
 
-	List<Category> findCategoryByArticleId(Long id);
+	Category findCategoryByArticleId(Long id);
 
 	Boolean exists(String name);
 

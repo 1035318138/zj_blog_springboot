@@ -5,6 +5,7 @@ import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import javax.xml.stream.events.Comment;
 import java.util.List;
 
 /**
@@ -47,4 +48,6 @@ public interface CommentsMapper {
 
 	//按照日期查看最近留言(5条)
 	List<Comments> findByRecent();
+
+	void updateStatus(Comments comments);
 }

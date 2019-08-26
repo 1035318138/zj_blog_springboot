@@ -67,4 +67,21 @@ public class UploadController {
 		uploadfile.transferTo(file);
 		return new Result(200, "http://localhost:8080/upload/article/" + id + "/" + file.getName());
 	}
+
+	@RequestMapping("/upload/user_avatar")
+	public Result uploadAvatar(Long id, MultipartFile uploadfile) throws IOException {
+		System.out.println(id);
+		System.out.println(uploadfile);
+//		return null;
+		String classpath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+		File userDir = new File(classpath, "/static/user_avatar/" + id);
+		if(!userDir.exists()){
+			userDir.mkdirs();
+		}
+		String fileName = UUID.randomUUID().toString().replace("-", "") + "_" + uploadfile.getOriginalFilename();
+		File file = new File(userDir.getAbsolutePath(), fileName);
+		uploadfile.transferTo(file);
+		System.out.println(classpath);
+		return new Result(200, "http://localhost:8080/user_avatar/" + id + "/" + file.getName());
+	}
 }

@@ -20,4 +20,7 @@ public interface ArticleCategoryMapper {
 
 	//根据分类id撤销关联
 	void deleteByCategoryId(Long category_id);
+
+	//根据文章id更新分类
+	void updateByAritlceId(@Param("cid")Long category_id, @Param("aid") Long article_id);
 }

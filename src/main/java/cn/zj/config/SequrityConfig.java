@@ -37,7 +37,7 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/api/user").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/user/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/comments").hasRole("USER")
-				.antMatchers("/api/user/**").hasRole("ADMIN")
+//				.antMatchers("/api/user/**").hasRole("ADMIN")
 //				.antMatchers(HttpMethod.POST, "/druid/**").hasRole("ADMIN")
 				.antMatchers(HttpMethod.GET).permitAll()
 				.antMatchers(HttpMethod.POST).permitAll()

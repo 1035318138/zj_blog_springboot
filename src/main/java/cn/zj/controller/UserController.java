@@ -54,7 +54,7 @@ public class UserController {
 	}
 
 	@PutMapping("/user")
-	public Result update(User user) {
+	public Result update(@RequestBody User user) {
 		if (user != null) {
 			userService.update(user);
 			return new Result(200, ResultEnums.SUCCESS);
@@ -72,15 +72,35 @@ public class UserController {
 	}
 
 	@GetMapping("/user/findByName")
-	public Result findByName(String name){
-		if(name != null){
+	public Result findByName(String name) {
+		if (name != null) {
 			User user = userService.findByName(name);
-			if(user != null){
+			if (user != null) {
 				return new Result(200, user);
-			}else{
-				return  new Result(404, "Not found");
+			} else {
+				return new Result(404, "Not found");
 			}
 		}
+		return new Result(400, ResultEnums.PARAM_ERROR);
+	}
+
+	@GetMapping("/user/findByBlurryName")
+	public Result findByBlurryName(String name) {
+		if (name != null) {
+			List<User> user = userService.findByBlurryName(name);
+			if (user != null) {
+				return new Result(200, user);
+			} else {
+				return new Result(404, "Not found");
+			}
+		}
+		return new Result(400, ResultEnums.PARAM_ERROR);
+	}
+
+	@PostMapping("/user/checkPassword")
+	public Result check(Long id, String password) {
+		if (id != null && password != null)
+			return new Result(200, userService.check(id, password));
 		return new Result(400, ResultEnums.PARAM_ERROR);
 	}
 }

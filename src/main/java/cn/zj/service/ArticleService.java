@@ -11,6 +11,7 @@ import java.util.List;
  * Created by Sept.05 on 2019/8/6.
  */
 public interface ArticleService extends BaseService<Article> {
+
 	/**
 	 * 分页查询(为前端服务)
 	 *

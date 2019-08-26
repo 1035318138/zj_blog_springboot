@@ -15,4 +15,8 @@ public interface UserService extends BaseService<User> {
 	User findByName(String username);
 
 	String getPassWordByName(String username);
+
+	List<User> findByBlurryName(String name);
+
+	Boolean check(Long id, String password);
 }
