@@ -36,7 +36,7 @@ public class ArticleServiceImpl implements ArticleService {
 	CommentsMapper commentsMapper;
 	@Autowired
 	UserMapper userMapper;
-//	@Autowired
+	//	@Autowired
 //	CategoryService categoryService;
 	@Autowired
 	CategoryMapper categoryMapper;
@@ -53,9 +53,8 @@ public class ArticleServiceImpl implements ArticleService {
 	public PageInfo<Article> findByPage(Integer pageNum, Integer pageSize) {
 		if (pageNum != null && pageSize != null) {
 			PageHelper.startPage(pageNum, pageSize);
-			List<Article> articles = articleMapper.findAll();
-			PageInfo<Article> pageInfo = new PageInfo<>(articles);
-			pageInfo.getList().forEach(article -> article.setCategory(categoryMapper.findCategoryByArticleId(article.getId()).getName()));
+			PageInfo<Article> pageInfo = new PageInfo<>(articleMapper.findAll());
+			initArticle(pageInfo.getList());
 			return pageInfo;
 		}
 		return null;
@@ -108,23 +107,23 @@ public class ArticleServiceImpl implements ArticleService {
 		dateCountMapper.add(new DateCount(null, new Date(), articleCount, eyeCount, comments, user_count));
 	}
 
-	public List<Long> findArticleCount(){
+	public List<Long> findArticleCount() {
 		return dateCountMapper.findArticleCount();
 	}
 
-	public List<Long> findEyeCount(){
+	public List<Long> findEyeCount() {
 		return dateCountMapper.findEyeCount();
 	}
 
-	public List<String> findWeek(){
+	public List<String> findWeek() {
 		return dateCountMapper.findWeek();
 	}
 
-	public List<Long> findCommentCount(){
+	public List<Long> findCommentCount() {
 		return dateCountMapper.findCommentCount();
 	}
 
-	public List<Long> findUserCount(){
+	public List<Long> findUserCount() {
 		return dateCountMapper.findUserCount();
 	}
 
@@ -136,10 +135,12 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public PageInfo<Article> findArchivesByDate(String date, Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		return new PageInfo<>(articleMapper.findArchivesByDate(date));
+		PageInfo<Article> articles = new PageInfo<>(articleMapper.findArchivesByDate(date));
+		initArticle(articles.getList());
+		return articles;
 	}
 
-	public List<String> findArchivesDates(){
+	public List<String> findArchivesDates() {
 		return articleMapper.findArchivesDates();
 	}
 
@@ -153,16 +154,26 @@ public class ArticleServiceImpl implements ArticleService {
 		articleMapper.addEyeCount(id);
 	}
 
+	@Override
+	public PageInfo<Article> findArticleByCategory(Long id, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		PageInfo<Article> articles = new PageInfo<>(categoryMapper.findArticleByCategory(id));
+		initArticle(articles.getList());
+		return articles;
+	}
+
 	/**
 	 * 初始化文章，设置文章的分类和标签
 	 *
 	 * @param articles
 	 */
 	private void initArticle(List<Article> articles) {
-		for(Article article : articles){
-			article.setCategory(categoryMapper.findCategoryByArticleId(article.getId()).getName());
+		for (Article article : articles) {
+			Category category = categoryMapper.findCategoryByArticleId(article.getId());
+			if (category != null)
+				article.setCategory(category.getName());
 		}
-		articles.forEach(System.out::println);
+//		articles.forEach(System.out::println);
 //		for (Article article : articles) {
 //			List<Category> categories = categoryService.findCategoryByArticleId(article.getId());
 //			if (!categories.isEmpty()) {
@@ -182,7 +193,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 	private void initArticle(Article article) {
 		Category category = categoryMapper.findCategoryByArticleId(article.getId());
-		article.setCategory(category.getName());
+		if(category != null)
+			article.setCategory(category.getName());
 //		List<Category> categorys = categoryService.findCategoryByArticleId(article.getId());
 //		if (!categorys.isEmpty()) {
 //			article.setCategory(categorys.get(0).getName());
@@ -209,8 +221,8 @@ public class ArticleServiceImpl implements ArticleService {
 		}
 	}
 
-	private void addCategoryAndTags(Article article){
-		if(article.getCategory() != null){
+	private void addCategoryAndTags(Article article) {
+		if (article.getCategory() != null) {
 			articleCategoryMapper.add(new ArticleCategory(article.getId(), categoryMapper.findByName(article.getCategory()).getId()));
 		}
 	}

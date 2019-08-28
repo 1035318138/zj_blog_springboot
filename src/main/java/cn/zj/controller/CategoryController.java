@@ -89,13 +89,13 @@ public class CategoryController {
 		return new Result(400, ResultEnums.ERROR);
 	}
 
-	@GetMapping("/category/findArticleByCategory")
-	public PageInfo<Article> findArticleByCategory(Long id, @RequestParam(defaultValue = "1") Integer pageNum,
-	                                               @RequestParam(defaultValue = "5") Integer pageSize){
-		if(id != null){
-			return categoryService.findArticleByCategory(id, pageNum, pageSize);
-		}
-		System.out.println(id);
-		return null;
-	}
+//	@GetMapping("/category/findArticleByCategory")
+//	public PageInfo<Article> findArticleByCategory(Long id, @RequestParam(defaultValue = "1") Integer pageNum,
+//	                                               @RequestParam(defaultValue = "5") Integer pageSize){
+//		if(id != null){
+//			return categoryService.findArticleByCategory(id, pageNum, pageSize);
+//		}
+//		System.out.println(id);
+//		return null;
+//	}
 }

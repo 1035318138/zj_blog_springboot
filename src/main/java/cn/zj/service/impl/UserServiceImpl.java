@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 			user.setNickname(UUID.randomUUID().toString());
 		if (user.getAvatar() == null)
 			user.setAvatar("http://localhost:8080/default_avatar/user_avatar0" +
-							new Random().nextInt(12) + 1 + ".png");
+							randomAvatar() + ".png");
 		userMapper.add(user);
 	}
 
@@ -108,5 +108,10 @@ public class UserServiceImpl implements UserService {
 		for (Long id : ids) {
 			userMapper.deleteById(id);
 		}
+	}
+
+	private String randomAvatar(){
+		Integer num = new Random().nextInt(12) + 1;
+		return num > 10 ? num.toString() : "0" + num.toString();
 	}
 }

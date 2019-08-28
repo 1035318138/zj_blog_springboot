@@ -87,4 +87,6 @@ public interface ArticleService extends BaseService<Article> {
 	 * @return
 	 */
 	List<Long> findUserCount();
+
+	PageInfo<Article> findArticleByCategory(Long id, Integer pageNum, Integer pageSize);
 }

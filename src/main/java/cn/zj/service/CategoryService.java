@@ -16,5 +16,5 @@ public interface CategoryService extends BaseService<Category>{
 
 	Boolean exists(String name);
 
-	PageInfo<Article> findArticleByCategory(Long id, Integer pageNum, Integer pageSize);
+//	PageInfo<Article> findArticleByCategory(Long id, Integer pageNum, Integer pageSize);
 }

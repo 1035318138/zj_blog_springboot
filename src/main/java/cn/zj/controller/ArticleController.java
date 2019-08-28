@@ -181,4 +181,14 @@ public class ArticleController {
 		}
 		return new Result(400, ResultEnums.PARAM_ERROR);
 	}
+
+	@GetMapping("/category/findArticleByCategory")
+	public PageInfo<Article> findArticleByCategory(Long id, @RequestParam(defaultValue = "1") Integer pageNum,
+	                                               @RequestParam(defaultValue = "5") Integer pageSize){
+		if(id != null){
+			return articleService.findArticleByCategory(id, pageNum, pageSize);
+		}
+		System.out.println(id);
+		return null;
+	}
 }

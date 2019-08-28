@@ -81,9 +81,9 @@ public class CategoryServiceImpl implements CategoryService{
 		return categoryMapper.exists(name);
 	}
 
-	@Override
-	public PageInfo<Article> findArticleByCategory(Long id, Integer pageNum, Integer pageSize) {
-		PageHelper.startPage(pageNum, pageSize);
-		return new PageInfo<>(categoryMapper.findArticleByCategory(id));
-	}
+//	@Override
+//	public PageInfo<Article> findArticleByCategory(Long id, Integer pageNum, Integer pageSize) {
+//		PageHelper.startPage(pageNum, pageSize);
+//		return new PageInfo<>(categoryMapper.findArticleByCategory(id));
+//	}
 }
