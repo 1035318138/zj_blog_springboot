@@ -6,5 +6,5 @@
 <a href="https://cn.vuejs.org/index.html"><img src="https://img.shields.io/badge/Vue.js-v2.x-green" alt="vue.js"></a>
 <a href="https://www.nginx.com/"><img src="https://img.shields.io/badge/Nginx-1.1.x-green" alt="nginx"></a>
 <a href="http://www.mybatis.org/mybatis-3/zh/index.html"><img src="https://img.shields.io/badge/MyBatis-3-green" alt="nginx"></a>
-<p>zj-blog是一个基于SpringBoot2开发的博客系统。UI移植自 [PolyQY](https://kucloud.win/link.html "PolyQY") 主题，因为原主题是基于PHP的，所以我不能直接使用它，但是非常感谢[PolyQY](https://kucloud.win/link.html "PolyQY")作者。 zj-blog的后台管理页面基于ElementUI绘制，后台管理通过ajax异步交互，相当于前后端半分离吧。如果你觉得它不错，欢迎 star fork。</p>
+<p>zj-blog是一个基于SpringBoot2开发的博客系统。UI移植自<a href="https://kucloud.win/link.html" title="PolyQY">PolyQY</a> 主题，因为原主题是基于PHP的，所以我不能直接使用它，但是非常感谢<a href="https://kucloud.win/link.html" title="PolyQY">PolyQY</a>作者。 zj-blog的后台管理页面基于ElementUI绘制，后台管理通过ajax异步交互，相当于前后端半分离吧。如果你觉得它不错，欢迎 star fork。</p>
 <br>
