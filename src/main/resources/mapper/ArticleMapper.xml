@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.zj.mapper.ArticleMapper">
     <select id="findAll" resultType="cn.zj.entity.Article">
-        SELECT * FROM tb_article ORDER BY id DESC
+        SELECT * FROM tb_article WHERE state = 'published' ORDER BY id DESC
     </select>
 
     <select id="findAllCount" resultType="java.lang.Long">
@@ -28,7 +28,7 @@
         SELECT * FROM tb_article WHERE id = #{id}
     </select>
 
-    <insert id="add" parameterType="cn.zj.entity.Article">
+    <insert id="add" parameterType="cn.zj.entity.Article" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO tb_article
         <trim prefix="(" suffix=")" suffixOverrides=",">
             author, state, publish_time, edit_time, create_time,
@@ -38,6 +38,7 @@
             <if test="leave_message!=null">leave_message,</if>
             <if test="origin!=null">origin,</if>
             <if test="eye_count!=null">eye_count,</if>
+            <if test="content_short!=null">content_short</if>
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             #{author}, #{state}, #{publish_time}, #{edit_time}, #{create_time},
@@ -47,6 +48,7 @@
             <if test="leave_message!=null">#{leave_message},</if>
             <if test="origin!=null">#{origin},</if>
             <if test="eye_count!=null">#{eye_count},</if>
+            <if test="content_short!=null">#{content_short}</if>
         </trim>
     </insert>
 
@@ -64,7 +66,8 @@
                 <if test="eye_count!=null">eye_count=#{eye_count},</if>
                 <if test="publish_time!=null">publish_time=#{publish_time},</if>
                 <if test="edit_time!=null">edit_time=#{edit_time},</if>
-                <if test="create_time!=null">create_time=#{create_time}</if>
+                <if test="create_time!=null">create_time=#{create_time},</if>
+                <if test="content_short!=null">content_short=#{content_short}</if>
             </trim>
         </set>
         WHERE id = #{id}
@@ -79,15 +82,16 @@
     </select>
 
     <select id="findArchivesDates" resultType="java.lang.String">
-        SELECT DISTINCT DATE_FORMAT(publish_time, '%Y-%m') FROM tb_article ORDER BY DATE_FORMAT(publish_time, '%Y-%m') DESC;
+        SELECT DISTINCT DATE_FORMAT(publish_time, '%Y-%m') `date` FROM tb_article
+        WHERE publish_time > '2000-01-01' AND state = "published"  ORDER BY DATE_FORMAT(publish_time, '%Y-%m') DESC;
     </select>
 
     <select id="findArchivesByDate" resultType="cn.zj.entity.Article">
-        SELECT * FROM tb_article WHERE publish_time LIKE CONCAT('%', #{date}, '%')
+        SELECT * FROM tb_article WHERE publish_time LIKE CONCAT('%', #{date}, '%') AND state = "published"
     </select>
 
     <select id="findFuzzyByTitle" resultType="cn.zj.entity.Article">
-        SELECT * FROM tb_article WHERE title LIKE CONCAT('%', #{title}, '%')
+        SELECT * FROM tb_article WHERE title LIKE CONCAT('%', #{title}, '%') AND state = "published" ORDER BY publish_time
     </select>
 
     <update id="addEyeCount" parameterType="java.lang.Long">
@@ -98,7 +102,9 @@
         SELECT a.id, a.title, a.title_pic, a.author, a.content, a.leave_message,
                 a.origin, a.state, a.eye_count, a.publish_time, a.edit_time, a.create_time
         FROM tb_article a, tb_category c, tb_article_category ac
-        WHERE a.id = ac.article_id AND c.id = ac.category_id AND c.`name` LIKE CONCAT('%',#{category},'%')
+        WHERE a.id = ac.article_id AND c.id = ac.category_id
+        AND state = "published"
+        AND c.`name` LIKE CONCAT('%',#{category},'%')
     </select>
 
     <select id="findAllEyeCount" resultType="java.lang.Long">

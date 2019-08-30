@@ -61,11 +61,12 @@ public class CommentsServiceImpl implements CommentsService{
 	public void add(Comments comments) {
 		User user = userMapper.findById(comments.getAuthor_id());
 //		comments.setAuthor_id(comments.getAuthor_id());
-		comments.setAuthor_avatar(user.getAvatar());
-		comments.setState("正常");
+		String avatar = user.getAvatar();
+		if(avatar != null)
+			comments.setAuthor_avatar(avatar);
+		comments.setState("published");
 		comments.setTime(new Date());
-		System.out.println(comments);
-		commentsMapper.add(comments);
+//		commentsMapper.add(comments);
 	}
 
 	@Override

@@ -18,8 +18,9 @@ public class LoginController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping("/userLogin")
-	public String loginPage(){
+	@GetMapping("/login")
+	public String loginPage(String user, String password){
+		System.out.println(user + ", passowrd: " + password);
 		return "login";
 	}
 

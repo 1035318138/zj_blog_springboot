@@ -54,4 +54,17 @@
     <select id="findUserCount" resultType="java.lang.Long">
         SELECT COUNT(*) FROM tb_user
     </select>
+
+    <select id="findByBlurryName" resultType="cn.zj.entity.User">
+        SELECT id, username, nickname, experience, email, avatar, role
+        FROM tb_user WHERE tb_user.username LIKE CONCAT('%',#{name},'%')
+    </select>
+
+    <select id="findAll" resultType="cn.zj.entity.User">
+        SELECT id, username, nickname, experience, email, avatar, role FROM tb_user
+    </select>
+
+    <select id="findPasswordById" resultType="java.lang.String" parameterType="java.lang.Long">
+        SELECT password FROM tb_user WHERE id = #{id}
+    </select>
 </mapper>

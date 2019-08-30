@@ -145,8 +145,11 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<Article> findFuzzyByTitle(String title) {
-		return articleMapper.findFuzzyByTitle(title);
+	public PageInfo<Article> findFuzzyByTitle(String title, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		PageInfo<Article> articles = new PageInfo<>(articleMapper.findFuzzyByTitle(title));
+		initArticle(articles.getList());
+		return articles;
 	}
 
 	@Override

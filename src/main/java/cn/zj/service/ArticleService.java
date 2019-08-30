@@ -46,7 +46,7 @@ public interface ArticleService extends BaseService<Article> {
 	 * @param title
 	 * @return
 	 */
-	List<Article> findFuzzyByTitle(String title);
+	PageInfo<Article> findFuzzyByTitle(String title, Integer pageNum, Integer pageSize);
 
 	/**
 	 * 增加浏览量

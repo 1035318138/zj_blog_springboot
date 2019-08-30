@@ -23,4 +23,9 @@
     <delete id="deleteByCategoryId" parameterType="java.lang.Long">
         DELETE FROM tb_article_category WHERE category_id = #{category_id}
     </delete>
+
+    <update id="updateByAritlceId" parameterType="java.lang.Long">
+        UPDATE tb_article_category SET tb_article_category.category_id = #{cid}
+        WHERE tb_article_category.article_id = #{aid}
+    </update>
 </mapper>

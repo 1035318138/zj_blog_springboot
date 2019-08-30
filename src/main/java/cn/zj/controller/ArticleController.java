@@ -53,14 +53,15 @@ public class ArticleController {
 		return articleService.findByPage(pageNum, pageSize);
 	}
 
-	@GetMapping("/article/search/{title}")
-	public Result findByTitle(@PathVariable("title") String title) {
+	@GetMapping("/article/search")
+	public PageInfo<Article> findByTitle(String title, @RequestParam(defaultValue = "1")Integer pageNum,
+	                                                   @RequestParam(defaultValue = "5")Integer pageSize) {
 		if (title != null) {
-			List<Article> articleList = articleService.findFuzzyByTitle(title);
-			if (articleList != null && !articleList.isEmpty())
-				return new Result(200, articleList);
+//			List<Article> articleList = articleService.findFuzzyByTitle(title);
+//			if (articleList != null && !articleList.isEmpty())
+				return articleService.findFuzzyByTitle(title, pageNum, pageSize);
 		}
-		return new Result(400, ResultEnums.ERROR);
+		return null;
 	}
 
 //	@PostMapping("/article/findByPageForSite")
@@ -184,11 +185,10 @@ public class ArticleController {
 
 	@GetMapping("/category/findArticleByCategory")
 	public PageInfo<Article> findArticleByCategory(Long id, @RequestParam(defaultValue = "1") Integer pageNum,
-	                                               @RequestParam(defaultValue = "5") Integer pageSize){
+	                                                        @RequestParam(defaultValue = "5") Integer pageSize){
 		if(id != null){
 			return articleService.findArticleByCategory(id, pageNum, pageSize);
 		}
-		System.out.println(id);
 		return null;
 	}
 }

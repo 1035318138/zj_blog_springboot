@@ -8,7 +8,7 @@
     </select>
 
     <select id="findAll" resultType="cn.zj.entity.Comments">
-        SELECT * FROM tb_comments
+        SELECT * FROM tb_comments WHERE tb_comments.state != 'deleted' ORDER BY `time` DESC
     </select>
 
     <select id="findByPage" resultType="cn.zj.entity.Comments" parameterType="cn.zj.entity.Comments">
@@ -71,7 +71,7 @@
 
     <select id="findByArticleId" resultType="cn.zj.entity.Comments" parameterType="java.lang.Long">
         SELECT tb_comments.id, tb_comments.author, tb_comments.content, tb_comments.time, tb_comments.author_avatar
-        FROM tb_comments WHERE tb_comments.article_id = #{id}
+        FROM tb_comments WHERE tb_comments.article_id = #{id} AND tb_comments.state = 'published'
         ORDER BY tb_comments.time DESC
     </select>
 
@@ -79,4 +79,12 @@
         SELECT tb_comments.content, tb_comments.author, tb_comments.time
         FROM `tb_comments` ORDER BY tb_comments.time DESC LIMIT 0, 8
     </select>
+
+    <update id="updateStatus" parameterType="cn.zj.entity.Comments">
+        UPDATE tb_comments
+         <set>
+             state = #{state}
+         </set>
+        WHERE id = #{id}
+    </update>
 </mapper>
