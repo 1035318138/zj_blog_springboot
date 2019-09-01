@@ -54,7 +54,11 @@ public class UserController {
 	}
 
 	@PutMapping("/user")
-	public Result update(@RequestBody User user) {
+	public Result update(User user) {
+//		System.out.println(user);
+		if("".equals(user.getPassword())){
+			user.setPassword(null);
+		}
 		if (user != null) {
 			userService.update(user);
 			return new Result(200, ResultEnums.SUCCESS);

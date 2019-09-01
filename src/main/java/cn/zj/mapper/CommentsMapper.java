@@ -50,4 +50,6 @@ public interface CommentsMapper {
 	List<Comments> findByRecent();
 
 	void updateStatus(Comments comments);
+
+	List<Comments> findAllAdmin();
 }

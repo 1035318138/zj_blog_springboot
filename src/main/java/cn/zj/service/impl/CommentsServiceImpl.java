@@ -53,6 +53,15 @@ public class CommentsServiceImpl implements CommentsService{
 	}
 
 	@Override
+	public PageInfo<Comments> findAllAdmin(Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Comments> comments = commentsMapper.findAllAdmin();
+		if(!comments.isEmpty())
+			return new PageInfo<>(comments);
+		return null;
+	}
+
+	@Override
 	public Comments findById(Long id) {
 		return commentsMapper.findById(id);
 	}
@@ -66,7 +75,7 @@ public class CommentsServiceImpl implements CommentsService{
 			comments.setAuthor_avatar(avatar);
 		comments.setState("published");
 		comments.setTime(new Date());
-//		commentsMapper.add(comments);
+		commentsMapper.add(comments);
 	}
 
 	@Override

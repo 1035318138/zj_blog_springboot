@@ -16,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 /**
  * Created by Sept.05 on 2019/8/4.
@@ -29,7 +30,7 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 //		super.configure(http);
-		http
+		http.csrf().disable()
 				//.csrf().ignoringAntMatchers("/druid/**").and()
 				.authorizeRequests()
 //				.antMatchers("/**").permitAll()
@@ -40,11 +41,6 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/api/comments").hasRole("USER")
 				.antMatchers("/api/user/**").hasRole("ADMIN")
 				.antMatchers("/admin/**").hasRole("ADMIN")
-//				.antMatchers(HttpMethod.POST, "/druid/**").hasRole("ADMIN")
-				.antMatchers(HttpMethod.GET).permitAll()
-				.antMatchers(HttpMethod.POST).permitAll()
-				.antMatchers(HttpMethod.PUT).permitAll()
-				.antMatchers(HttpMethod.DELETE).permitAll()
 				.antMatchers(HttpMethod.POST).hasRole("ADMIN")
 				.antMatchers(HttpMethod.PUT).hasRole("ADMIN")
 				.antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
@@ -63,6 +59,7 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/logoutSuccess");
 
 		http.exceptionHandling().accessDeniedHandler((httpServletRequest, httpServletResponse, e) -> {
+			System.out.println(e);
 			httpServletResponse.setHeader("Content-type", "application/json;charset=utf-8");
 			Result responseBody = new Result(403, "无权访问");
 			httpServletResponse.getWriter().write(JSON.toJSONString(responseBody));

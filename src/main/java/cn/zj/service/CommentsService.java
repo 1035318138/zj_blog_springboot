@@ -47,4 +47,6 @@ public interface CommentsService extends BaseService<Comments> {
 	PageInfo<Comments> findByPage(Integer pageNum, Integer pageSize);
 
 	void updateStatus(Comments comments);
+
+	PageInfo<Comments> findAllAdmin(Integer pageNum, Integer pageSize);
 }

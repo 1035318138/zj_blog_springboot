@@ -38,7 +38,7 @@ public class CommentsController {
 
 	@GetMapping("/comments/findByPage")
 	public PageInfo<Comments> findByPage(@RequestParam(defaultValue = "1") Integer pageNum,
-	                           @RequestParam(defaultValue = "5") Integer pageSize){
+	                                     @RequestParam(defaultValue = "5") Integer pageSize) {
 		return commentsService.findByPage(pageNum, pageSize);
 	}
 
@@ -102,21 +102,28 @@ public class CommentsController {
 	}
 
 	@GetMapping("/comments/findByArticleId")
-	public Result findByArticleId(Long id){
-		if(id != null){
+	public Result findByArticleId(Long id) {
+		if (id != null) {
 			return new Result(200, commentsService.findByArticleId(id));
 		}
 		return new Result(400, ResultEnums.PARAM_ERROR);
 	}
 
 	@GetMapping("/comments/findByRecent")
-	public Result findByRecent(){
+	public Result findByRecent() {
 		return new Result(200, commentsService.findByRecent());
 	}
 
 	@PutMapping("/comments/updateStatus")
-	public Result updateStatus(Comments comments){
+	public Result updateStatus(Comments comments) {
 		commentsService.updateStatus(comments);
 		return new Result(200, ResultEnums.SUCCESS);
+	}
+
+	@GetMapping("/comments/findAllAdmin")
+	public PageInfo<Comments> findAllAdmin(Integer pageNum, Integer pageSize) {
+		if (pageNum != null && pageSize != null)
+			return commentsService.findAllAdmin(pageNum, pageSize);
+		return null;
 	}
 }

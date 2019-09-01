@@ -11,6 +11,10 @@
         SELECT * FROM tb_comments WHERE tb_comments.state != 'deleted' ORDER BY `time` DESC
     </select>
 
+    <select id="findAllAdmin" resultType="cn.zj.entity.Comments">
+        SELECT * FROM tb_comments ORDER BY `time` DESC
+    </select>
+
     <select id="findByPage" resultType="cn.zj.entity.Comments" parameterType="cn.zj.entity.Comments">
         SELECT * FROM tb_comments WHERE 1=1
         <if test="author!=null">AND author LIKE CONCAT('%', #{author}, '%')</if>
