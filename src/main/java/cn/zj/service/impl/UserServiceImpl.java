@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -80,21 +82,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void add(User user) {
+	public void add(User user) throws UnknownHostException {
 		add(user, false);
 	}
 
 	@Override
-	public void add(User user, Boolean IS_ADMIN) {
+	public void add(User user, Boolean IS_ADMIN) throws UnknownHostException {
 		if (IS_ADMIN)
 			user.setRole("ROLE_ADMIN");
 		if (user.getExperience() == null)
 			user.setExperience("0");
 		if (user.getNickname() == null)
-			user.setNickname(UUID.randomUUID().toString());
+			user.setNickname(UUID.randomUUID().toString().substring(0, 6));
 		if (user.getAvatar() == null)
-			user.setAvatar("http://localhost:8080/default_avatar/user_avatar0" +
-							randomAvatar() + ".png");
+			user.setAvatar("http://" + InetAddress.getLocalHost().getHostAddress() + ":8080/default_avatar/user_avatar" +
+					randomAvatar() + ".png");
 		userMapper.add(user);
 	}
 
@@ -111,8 +113,9 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	private String randomAvatar(){
+	private String randomAvatar() {
 		Integer num = new Random().nextInt(12) + 1;
+		System.out.println(num);
 		return num > 10 ? num.toString() : "0" + num.toString();
 	}
 }

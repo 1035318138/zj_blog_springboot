@@ -9,6 +9,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.UnknownHostException;
+
 /**
  * Created by Sept.05 on 2019/8/6.
  */
@@ -75,7 +77,7 @@ public class CommentsController {
 	}
 
 	@PostMapping("/comments")
-	public Result add(Comments comments) {
+	public Result add(Comments comments) throws UnknownHostException {
 		if (comments != null) {
 			commentsService.add(comments);
 			return new Result(200, ResultEnums.SUCCESS);

@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.UnknownHostException;
+
 /**
  * Created by Sept.05 on 2019/8/6.
  */
@@ -48,7 +50,7 @@ public class TagsController {
 	}
 
 	@PostMapping("/tags")
-	public Result add(Tags tags){
+	public Result add(Tags tags) throws UnknownHostException {
 		if(tags != null){
 			tagsService.add(tags);
 			return new Result(200, ResultEnums.SUCCESS);

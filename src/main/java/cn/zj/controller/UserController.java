@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public class UserController {
 	}
 
 	@PostMapping("/user")
-	public Result add(User user) {
+	public Result add(User user) throws UnknownHostException {
 		if (user != null) {
 //			System.out.println(user);
 			userService.add(user);

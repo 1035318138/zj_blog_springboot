@@ -57,5 +57,9 @@ jwt:
     refresh: /auth/refresh  #刷新token地址
     register: /auth/register  #注册的地址
 ---
-file:
-  staticAccessPath: /api/upload/avatar/**
+#uploadFile:
+#  resourceHandler: /upload/**   #请求 url 中的资源映射
+#  location: E:/home/upload/ #自定义上传文件本地保存路径
+uploadFile:
+  resourceHandler: /upload/**
+  location: /home/upload/

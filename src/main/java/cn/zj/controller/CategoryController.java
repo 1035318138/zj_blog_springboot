@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,7 @@ public class CategoryController {
 	}
 
 	@PostMapping("/category")
-	public Result add(Category category){
+	public Result add(Category category) throws UnknownHostException {
 		if(category != null){
 			categoryService.add(category);
 			return new Result(200, ResultEnums.SUCCESS);

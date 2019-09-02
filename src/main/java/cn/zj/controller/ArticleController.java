@@ -14,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +93,7 @@ public class ArticleController {
 	}
 
 	@PostMapping("/article")
-	public Result add( Article article){
+	public Result add( Article article) throws UnknownHostException {
 		if(article != null){
 //			System.out.println(article);
 			articleService.add(article);

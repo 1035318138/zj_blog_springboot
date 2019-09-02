@@ -2,6 +2,7 @@ package cn.zj.service;
 
 import cn.zj.entity.User;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
 public interface UserService extends BaseService<User> {
 //	List<User> users();
 
-	void add(User user, Boolean IS_ADMIN);
+	void add(User user, Boolean IS_ADMIN) throws UnknownHostException;
 
 	User findByName(String username);
 

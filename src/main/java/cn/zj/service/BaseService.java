@@ -2,6 +2,7 @@ package cn.zj.service;
 
 import cn.zj.dto.PageBean;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 /**
@@ -45,7 +46,7 @@ public interface BaseService<T> {
 	 *
 	 * @param t
 	 */
-	void add(T t);
+	void add(T t) throws UnknownHostException;
 
 	/**
 	 * 修改
