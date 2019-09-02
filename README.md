@@ -13,9 +13,10 @@ zj-blog是一个基于SpringBoot2开发的博客系统。UI移植自[PolyQY](htt
  主题，因为原主题是基于PHP的，所以我不能直接使用它，但是非常感谢[PolyQY](https://kucloud.win/link.html "PolyQY")作者。  
  zj-blog的后台管理页面基于ElementUI绘制，基于[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin/blob/master/README.zh-CN.md)修改，后台管理通过axios异步交互，相当于前后端分离吧。如果你觉得它不错，欢迎 star fork。
  
- **注意**：本博客系统仍在不断的维护开发中，欢迎提出合理的建议。如果你喜欢，请持续关注了(#^.^#)。</p>
-演示站点：  [演示站点](www.xjngbnn.top)             香蕉你个不拿拿   
-管理入口：  [管理入口](www.xjngbnn.top/#/login)
+ **注意**：本博客系统仍在不断的维护开发中，欢迎提出合理的建议。如果你喜欢，请持续关注了(#^.^#)。</p>  
+ 香蕉你个不拿拿  
+演示站点：  [http://www.xjngbnn.top](http://www.xjngbnn.top)                    
+管理入口：  [http://www.xjngbnn.top/#/login](http://www.xjngbnn.top/#/login)
 
 ## 特点：
 * 简约的设计，漂亮的界面。  
