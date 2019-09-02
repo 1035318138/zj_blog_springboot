@@ -14,10 +14,10 @@ zj-blog是一个基于SpringBoot2开发的博客系统。UI移植自[PolyQY](htt
  zj-blog的后台管理页面基于ElementUI绘制，基于[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin/blob/master/README.zh-CN.md)修改，后台管理通过axios异步交互，相当于前后端分离吧。如果你觉得它不错，欢迎 star fork。
  
  **注意**：本博客系统仍在不断的维护开发中，欢迎提出合理的建议。如果你喜欢，请持续关注了(#^.^#)。   
-```diff
 - 由于服务器是外国的最低配版，所以访问起来可能要耐心一点噢(^・ω・^ )  
-```  
-                                     (香蕉你个不拿拿)  
+ 
+
+
 演示站点：  [http://www.xjngbnn.top](http://www.xjngbnn.top)                    
 管理入口：  [http://www.xjngbnn.top/#/login](http://www.xjngbnn.top/#/login)
 
