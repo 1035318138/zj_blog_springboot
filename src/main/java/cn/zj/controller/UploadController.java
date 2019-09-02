@@ -38,9 +38,9 @@ public class UploadController {
 		if(uploadfile == null || uploadfile.isEmpty()){
 			return new Result(400, "Bad Request");
 		}
-		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+		String basePath = request.getScheme() + "://" + InetAddress.getLocalHost().getHostAddress() + ":" + request.getServerPort() + request.getContextPath();
 		String fileName = UUID.randomUUID().toString().replace("-", "") + "_" + uploadfile.getOriginalFilename();
-		String fileServerPath = basePath + resourceHandler.substring(0, resourceHandler.lastIndexOf("/") + 1) + fileName;
+		String fileServerPath = resourceHandler.substring(0, resourceHandler.lastIndexOf("/") + 1) + fileName;
 		System.out.println("访问路径："+fileServerPath);
 		File saveFile = new File(uploadFileLocation, fileName);
 		uploadfile.transferTo(saveFile);
@@ -58,9 +58,9 @@ public class UploadController {
 		if(!file.exists()){
 			file.mkdirs();
 		}
-		String basePath = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-		String fileName = uploadfile.getOriginalFilename();
-		String fileServerPath = basePath + resourceHandler.substring(0, resourceHandler.lastIndexOf("/") + 1) + "user/" + id + "/" + fileName;
+		String basePath = req.getScheme() + "://" + InetAddress.getLocalHost().getHostAddress() + ":" + req.getServerPort() + req.getContextPath();
+		String fileName = UUID.randomUUID().toString().replace("-", "") + "_" + uploadfile.getOriginalFilename();
+		String fileServerPath = resourceHandler.substring(0, resourceHandler.lastIndexOf("/") + 1) + "user/" + id + "/" + fileName;
 		System.out.println("访问路径：" + fileServerPath);
 
 		File saveFile = new File(path, fileName);
@@ -76,9 +76,9 @@ public class UploadController {
 		if(!file.exists()){
 			file.mkdirs();
 		}
-		String base = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-		String fileName = uploadfile.getOriginalFilename();
-		String fileServicePath = base + resourceHandler.substring(0, resourceHandler.lastIndexOf("/") + 1) + "article/" + id + "/" + fileName;
+		String base = req.getScheme() + "://" + InetAddress.getLocalHost().getHostAddress() + ":" + req.getServerPort() + req.getContextPath();
+		String fileName = UUID.randomUUID().toString().replace("-", "") + "_" + uploadfile.getOriginalFilename();
+		String fileServicePath = resourceHandler.substring(0, resourceHandler.lastIndexOf("/") + 1) + "article/" + id + "/" + fileName;
 		File saveFile = new File(path, fileName);
 		uploadfile.transferTo(saveFile);
 		System.out.println("访问路径：" + fileServicePath);
