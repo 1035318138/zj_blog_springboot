@@ -17,8 +17,8 @@ zj-blog是一个基于SpringBoot2开发的博客系统。UI移植自[PolyQY](htt
  ```diff
 - 因博主服务器数量有限，目前该博客已下线，不提供实时预览，大家可以本地部署噢。(^・ω・^ )  
  ```    
-演示站点：  [http://www.xjngbnn.top](http://www.xjngbnn.top)                    
-管理入口：  [http://www.xjngbnn.top/#/login](http://www.xjngbnn.top/#/login)
+演示站点：  [http://120.27.244.217](http://120.27.244.217)                    
+管理入口：  [http://120.27.244.217/#/login](http://120.27.244.217/#/login)
 
 ## 特点：
 * 简约的设计，漂亮的界面。  
