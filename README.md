@@ -18,8 +18,8 @@ zj-blog是一个基于SpringBoot2开发的博客系统。UI移植自[PolyQY](htt
 - 由于域名正在备案中，成功后再部署https，请耐心等待噢(^・ω・^ )  
  ```    
 演示站点：  [http://120.27.244.217](http://120.27.244.217)                    
-管理入口：  [http://120.27.244.217/#/login](http://120.27.244.217/#/login)
-![快速开始](https://github.com/13129006006/zj_blog_springboot.wiki.git)
+管理入口：  [http://120.27.244.217/#/login](http://120.27.244.217/#/login)  
+[快速开始](https://github.com/13129006006/zj_blog_springboot.wiki.git)
 
 ## 特点：
 * 简约的设计，漂亮的界面。  
