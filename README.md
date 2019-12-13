@@ -16,7 +16,7 @@ zj-blog是一个基于SpringBoot2开发的博客系统。UI移植自[PolyQY](htt
  **注意**：本博客系统仍在不断的维护开发中，欢迎提出合理的建议。如果你喜欢，请持续关注了(#^.^#)。   
  **由于服务器太贵，如有需要请在clone本地运行**
 ~~演示站点：  [xjngbnn.top](http://www.xjngbnn.top)~~                    
-~~管理入口：  [xjngbnn.top/#/login](http://www.xjngbnn.top/#/login)  ~~
+~~管理入口：  [xjngbnn.top/#/login](http://www.xjngbnn.top/#/login)~~  
 [快速开始](https://github.com/13129006006/zj_blog_springboot/wiki)
 
 ## 特点：
